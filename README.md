@@ -1,100 +1,96 @@
-# azure-cost-analysis
+# azure-cost-analysis 
 <img width="1992" alt="Screenshot 2025-06-28 at 3 50 22 PM" src="https://github.com/user-attachments/assets/6b457a60-fbf0-4246-b7f8-a683a9970013" />
 
+# Azure Cost Analysis — Cloud BI Project
 
-This project analyzes anonymized Azure cloud cost data to uncover trends, identify high-impact services, and detect potential optimization opportunities. Using SQL for data exploration and Tableau for interactive dashboards, the analysis focuses on spend distribution, regional patterns, service volatility, and Pareto-driven prioritization.
+## Purpose
 
-The final dashboard is built to support stakeholders in understanding cost behavior and driving smarter cloud strategy decisions.
+This project is a personal exploration into **cloud cost visibility** using an **anonymized Azure billing dataset**. My goal was to simulate the process of a **BI/Data Analyst** at a cloud-reliant organization:
 
+- Understand spending patterns  
+- Surface optimization opportunities  
+- Practice cloud cost governance analysis  
+- Use SQL + Tableau to tell a compelling data story
 
+> While the dataset is from Kaggle and can't be verified as official, it realistically mimics the structure and semantics of Azure Cost reports. This made it a useful proxy for exploration.
 
-Project Overview
+---
 
-This project explores anonymized Azure cloud cost data using SQL and Tableau to simulate a real-world business intelligence engagement. The goal is to identify cost drivers, service usage patterns, and opportunities for optimization using industry-standard analytics practices.
+## Tools Used
 
-⸻
+- **SQL (MySQL)** – Data exploration and aggregation  
+- **Tableau** – Data visualization and storytelling  
+- **Excel** – Quick checks and column understanding
 
-Objectives
-	•	Familiarize with Azure cloud billing structures
-	•	Use SQL to clean and explore cost data
-	•	Design an interactive Tableau dashboard
-	•	Apply analytical techniques like Pareto analysis and volatility scanning
+---
 
-⸻
+## Project Stages
 
-Dashboard Features
+### 1. **Data Understanding**
+- Cleaned and imported `anonymized_costs.json`
+- Evaluated key fields: `MeterCategory`, `ResourceGroup`, `ResourceLocation`, `UsageDate`, `CostInBillingCurrency`
+- Confirmed this dataset simulates a **single account’s** billing data
 
-1. KPI Summary Tiles
-	•	Total Spend
-	•	Number of Services, Regions, and Resource Groups
-	•	Top Service and Region by Cost
-
-2. Pareto Chart
-	•	Cost distribution by MeterCategory
-	•	Cumulative spend to identify 80/20 threshold
-
-3. Cost by Region
-	•	Highlights dominant regions and flags “Unassigned” spend
-
-4. Spending Over Time + Moving Average
-	•	Daily spend trend with 7-day moving average to identify consistency or volatility
-
-5. Top 5 Cost-Driving Services
-	•	Bar chart with percentage of total spend
-
-6. Service Volatility Scatter Plot
-	•	Visualizes volatility (max-min variation) against average daily cost
-	•	Quadrants for segmenting high-risk services
-
-⸻
-
-SQL Exploration Highlights
-
-SQL was used to:
-	•	Validate dataset integrity (row count, null checks)
-	•	Analyze top services and regions by cost
-	•	Group and aggregate data for Pareto thresholds
-	•	Calculate cost volatility per MeterCategory
-
-A link to my queries here: 
+### 2. **SQL Exploration**
+Foundational questions explored:
+- Which services drive most cost?
+- Where is cloud spend geographically concentrated?
+- What is the monthly trend and volatility?
+- Are there untagged or unassigned costs?
+- Does the Pareto principle (80/20 rule) apply?
 
 
-⸻
+### 3. **Visualization in Tableau**
+Final dashboard includes:
+- KPI tiles (Total spend, Top service, Top 3 spend share)
+- Cost over time with 7-day moving average
+- Pareto chart for top services
+- Cost by region
+- Forecasting future spend
+- Volatility vs. total spend (scatter plot)
 
-Key Insights
-	•	Pareto principle holds: ~80% of spend comes from 12 out of 49 services
-	•	High concentration in West Europe: Potential cost redundancy or lack of region optimization
-	•	Service volatility varies widely: Certain services show cost spikes, hinting at scaling or mismanagement
 
-⸻
+### 4. **Insight Synthesis**
+- **Top 3 services = 48% of total spend** → Opportunity to focus optimizations  
+- **Westeurope dominates cloud region use** → Redundancy/risk management needed  
+- **~$1.4K in unassigned region spend** → Potential tagging/policy issue  
+- **Pareto holds** → 80% of cost comes from just 12 out of 49 services  
+- **Daily spend is stable** → Predictable usage trend  
+- **Volatility varies by service** → Target high-variability services for investigation  
 
-What I’d Do Differently
-	•	Integrate more granular Azure metadata (e.g., tags, SKUs)
-	•	Simulate a multi-account environment for broader analysis
-	•	Add anomaly detection models for forecasting or alerting
+---
 
-⸻
+## What I Learned
 
-Files
-	•	anonymized_costs.json - Raw dataset
-	•	sql_exploration.sql - SQL scripts used for analysis
-	•	azure_dashboard.twbx - Tableau packaged workbook
-	•	preview.png - Dashboard screenshot
+- How to simulate a realistic cloud BI workflow using anonymized data  
+- Best practices for dual-axis visuals (e.g., Pareto) and cumulative line plots  
+- Tradeoffs between different volatility metrics (std dev vs. min-max range)  
+- Tableau parameter filters for date interactivity across dashboard  
+- Importance of dashboard UX: grouping, tiling, tooltip design
 
-⸻
+---
 
-Skills Demonstrated
-	•	SQL (aggregations, filtering, joins)
-	•	Tableau (dashboard design, calculated fields, parameters)
-	•	Cloud cost analysis
-	•	Data storytelling
+## What I'd Do Differently
 
-⸻
+- Use real Azure exports from Cost Management + Billing  
+- Enrich the dataset with tags or account hierarchy if available  
+- Automate the data prep pipeline (e.g., Snowflake or dbt)  
+- Evaluate cost efficiency with metrics like "cost per usage unit"
 
-📣 Acknowledgments
+---
 
-This dataset was sourced from [Kaggle] and resembles Azure’s billing format, though anonymized. It provided a realistic simulation for building cloud cost intelligence.
+## Future Ideas
 
-⸻
+- Integrate real-time Azure spend via API  
+- Build alerts for anomalies or mis-tagged spikes  
+- Cross-cloud comparison (Azure vs AWS vs GCP)  
+- Drill-down pages by resource group or service owner
+
+---
+
+## Acknowledgments
+
+This dataset was sourced from https://www.kaggle.com/datasets/carrucciu/azure-costs and resembles Azure’s billing format, though anonymized. It provided a realistic simulation for building cloud cost intelligence.
 
 Feel free to fork or use this project for learning and reference!
+
